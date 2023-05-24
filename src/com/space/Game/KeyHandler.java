@@ -1,11 +1,18 @@
 package com.space.Game;
 
+import javax.imageio.ImageIO;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class KeyHandler implements KeyListener {
+    private final ArrayList<Shot> shotList = new ArrayList<>();
+
     private final GameFrame gameFrame;
 
     public static boolean moveUp = false;
@@ -18,13 +25,15 @@ public class KeyHandler implements KeyListener {
     private final int moveSpeedDown = 3;
 
     private boolean canShoot = true;
-    private final int shotSpeed = 1000; // Schuss alle shotSpeed ms möglich
+    private final int shotSpeed = 200; // Schuss alle shotSpeed ms möglich
     Timer shootTimer;
 
     SoundPlayer shootSoundPlayer;
+    Player player;
 
     public KeyHandler (GameFrame gameFrame, Player player) {
         this.gameFrame = gameFrame;
+        this.player = player;
 
         shootSoundPlayer = new SoundPlayer("shoot.wav");
 
@@ -47,6 +56,10 @@ public class KeyHandler implements KeyListener {
         }, 0, 10);
     }
 
+    public ArrayList<Shot> getShotList () {
+        return this.shotList;
+    }
+
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -58,6 +71,13 @@ public class KeyHandler implements KeyListener {
             gameFrame.setAmmo(gameFrame.getAmmo() - 1);
             canShoot = false;
             shootSoundPlayer.playSound();
+            BufferedImage image = null;
+            try {
+                image = ImageIO.read(new File("src/com/space/Textures/rocket/shots/shot_green.png"));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            shotList.add(new Shot(player.getX() + 43, player.getY(), 10, image));
             shootTimer.scheduleAtFixedRate(new TimerTask() {
                 int i = 0;
                 @Override

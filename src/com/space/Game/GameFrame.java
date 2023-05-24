@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @SuppressWarnings("InfiniteLoopStatement")
 public class GameFrame {
@@ -16,7 +17,7 @@ public class GameFrame {
 
     private int ammo = 50; // Munition
 
-    private JLabel ammoLabel;
+    private final JLabel ammoLabel;
 
     private static class Panel extends JPanel {
         Player player;
@@ -25,9 +26,14 @@ public class GameFrame {
         BufferedImage exhaust_S;
         BufferedImage exhaust_L;
 
+        KeyHandler keyHandler;
+        private ArrayList<Shot> shotList = new ArrayList<>();
+        private Shot shot;
 
-        public Panel(Player player) {
+
+        public Panel(Player player, KeyHandler keyHandler) {
             this.player = player;
+            this.keyHandler = keyHandler;
 
             try {
                 this.playerImage = ImageIO.read(new File("src/com/space/Textures/rocket/rocket.png"));
@@ -51,6 +57,18 @@ public class GameFrame {
             g.drawImage(playerImage, player.getX(), player.getY(), this);
             if (KeyHandler.moveUp) g.drawImage(exhaust_L, player.getX()+25, player.getY()+151, this);
             else if (!KeyHandler.moveDown) g.drawImage(exhaust_S, player.getX()+25, player.getY()+151, this);
+
+            // draw shots
+            this.shotList = keyHandler.getShotList();
+            for(int i = 0; i < shotList.size(); i++) {
+                shot = shotList.get(i);
+                g.drawImage(shot.getImage(), shot.getXpos(), shot.getYpos(), this);
+                shot.setYpos(shot.getYpos() - shot.getSpeed());
+                if (shot.getYpos() < -30) {
+                    shotList.remove(shot);
+                }
+            }
+
             //g.dispose();
         }
     }
@@ -58,22 +76,23 @@ public class GameFrame {
     private static JFrame frame;
 
     public GameFrame() {
-        DelayToFrameRate frameController = new DelayToFrameRate(60, true);
         Player player = new Player(590, 450);
+        KeyHandler keyHandler = new KeyHandler(this,player);
+        DelayToFrameRate frameController = new DelayToFrameRate(60, true);
 
         ammoLabel = new JLabel();
         ammoLabel.setText(String.valueOf(ammo));
         ammoLabel.setFont(new Font("Arial", Font.BOLD, 50));
         ammoLabel.setVisible(true);
 
-        Panel panel = new Panel(player);
+        Panel panel = new Panel(player, keyHandler);
 
         panel.add(ammoLabel);
 
         frame = new JFrame();
 
         frame.add(panel);
-        frame.addKeyListener(new KeyHandler(this, player));
+        frame.addKeyListener(keyHandler);
 
         frame.setTitle("Space Adventure");
         frame.setSize(1280, 720);
