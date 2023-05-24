@@ -11,22 +11,31 @@ import java.io.IOException;
 
 @SuppressWarnings("InfiniteLoopStatement")
 public class GameFrame {
+    private static final int framerate = 120;
+    private static int currentFrame = 0;
+
     private static class Panel extends JPanel {
         Player player;
         BufferedImage playerImage;
+        BufferedImage backgroundImage;
 
         public Panel(Player player) {
             this.player = player;
 
             try {
                 this.playerImage = ImageIO.read(new File("src/com/space/Textures/rocket.png"));
+                this.backgroundImage = ImageIO.read(new File("src/com/space/Textures/background.png"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
         public void paintComponent(Graphics g) {
+            int y;
+            y = (getHeight() * currentFrame)/framerate;
             super.paintComponent(g);
+            g.drawImage(backgroundImage, 0, y, this);
+            g.drawImage(backgroundImage, 0, y-getHeight(), this);
             g.drawImage(playerImage, player.getX(), player.getY(), this);
             g.dispose();
         }
@@ -49,13 +58,14 @@ public class GameFrame {
         frame.setSize(1280, 720);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
         frame.setVisible(true);
 
         frame.setBackground(Color.BLACK);
 
+        long time;
         while (true) {
-            long time = System.nanoTime();
+            currentFrame = (currentFrame+1)%framerate;
+            time = System.nanoTime();
             panel.repaint();
             time = System.nanoTime() - time;
             frameController.delay(time);
