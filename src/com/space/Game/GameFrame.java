@@ -19,7 +19,7 @@ public class GameFrame {
             this.player = player;
 
             try {
-                this.playerImage = ImageIO.read(new File("src/com/space/Textures/rocked.png"));
+                this.playerImage = ImageIO.read(new File("src/com/space/Textures/rocket.png"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -36,7 +36,7 @@ public class GameFrame {
 
     public GameFrame() {
         DelayToFrameRate frameController = new DelayToFrameRate(60, true);
-        Player player = new Player(590, 550);
+        Player player = new Player(590, 500);
 
         Panel panel = new Panel(player);
 
