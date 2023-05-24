@@ -15,7 +15,10 @@ public class KeyHandler implements KeyListener {
     private final int moveSpeedUp = 5;
     private final int moveSpeedDown = 3;
 
+    SoundPlayer soundPlayer;
+
     public KeyHandler (Player player) {
+        soundPlayer = new SoundPlayer();
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -41,6 +44,10 @@ public class KeyHandler implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            soundPlayer.playSound("shoot.wav");
+        }
+
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             System.exit(0);
         }

@@ -2,22 +2,32 @@ package com.space.Game;
 
 import com.space.Utility.DelayToFrameRate;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 @SuppressWarnings("InfiniteLoopStatement")
 public class GameFrame {
     private static class Panel extends JPanel {
         Player player;
+        BufferedImage playerImage;
 
         public Panel(Player player) {
             this.player = player;
+
+            try {
+                this.playerImage = ImageIO.read(new File("C:\\projects\\java\\SpaceAdventure\\src\\com\\space\\Textures\\rocked.png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
-            g.setColor(Color.RED);
-            g.fillRect(player.getX(), player.getY(), 100, 100);
+            g.drawImage(playerImage, player.getX(), player.getY(), this);
             g.dispose();
         }
     }
