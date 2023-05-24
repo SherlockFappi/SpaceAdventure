@@ -11,8 +11,14 @@ import java.io.IOException;
 
 @SuppressWarnings("InfiniteLoopStatement")
 public class GameFrame {
-    private static final int framerate = 120;
+    private static final int framerate = 60;
     private static int currentFrame = 0;
+
+    private int ammo = 50; // Munition
+
+    private Timer backgroundTimer;
+
+    private JLabel ammoLabel;
 
     private static class Panel extends JPanel {
         Player player;
@@ -23,7 +29,7 @@ public class GameFrame {
             this.player = player;
 
             try {
-                this.playerImage = ImageIO.read(new File("src/com/space/Textures/rocket.png"));
+                this.playerImage = ImageIO.read(new File("src/com/space/Textures/rocket/rocket.png"));
                 this.backgroundImage = ImageIO.read(new File("src/com/space/Textures/background.png"));
             } catch (IOException e) {
                 e.printStackTrace();
@@ -37,7 +43,7 @@ public class GameFrame {
             g.drawImage(backgroundImage, 0, y, this);
             g.drawImage(backgroundImage, 0, y-getHeight(), this);
             g.drawImage(playerImage, player.getX(), player.getY(), this);
-            g.dispose();
+            //g.dispose();
         }
     }
 
@@ -47,12 +53,19 @@ public class GameFrame {
         DelayToFrameRate frameController = new DelayToFrameRate(60, true);
         Player player = new Player(590, 500);
 
+        ammoLabel = new JLabel();
+        ammoLabel.setText(String.valueOf(ammo));
+        ammoLabel.setFont(new Font("Arial", Font.BOLD, 50));
+        ammoLabel.setVisible(true);
+
         Panel panel = new Panel(player);
+
+        panel.add(ammoLabel);
 
         frame = new JFrame();
 
         frame.add(panel);
-        frame.addKeyListener(new KeyHandler(player));
+        frame.addKeyListener(new KeyHandler(this, player));
 
         frame.setTitle("Space Adventure");
         frame.setSize(1280, 720);
@@ -60,7 +73,7 @@ public class GameFrame {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-        frame.setBackground(Color.BLACK);
+        panel.setBackground(Color.BLACK);
 
         long time;
         while (true) {
@@ -70,5 +83,14 @@ public class GameFrame {
             time = System.nanoTime() - time;
             frameController.delay(time);
         }
+    }
+
+    public int getAmmo () {
+        return this.ammo;
+    }
+
+    public void setAmmo(int ammo) {
+        this.ammo = ammo;
+        ammoLabel.setText(String.valueOf(this.ammo));
     }
 }

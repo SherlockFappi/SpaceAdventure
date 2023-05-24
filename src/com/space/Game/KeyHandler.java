@@ -6,6 +6,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class KeyHandler implements KeyListener {
+    private GameFrame gameFrame;
+
     private boolean moveUp = false;
     private boolean moveDown = false;
     private boolean moveLeft = false;
@@ -21,7 +23,9 @@ public class KeyHandler implements KeyListener {
 
     SoundPlayer shootSoundPlayer;
 
-    public KeyHandler (Player player) {
+    public KeyHandler (GameFrame gameFrame, Player player) {
+        this.gameFrame = gameFrame;
+
         shootSoundPlayer = new SoundPlayer("shoot.wav");
 
         shootTimer = new Timer();
@@ -51,6 +55,7 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_SPACE && canShoot) {
+            gameFrame.setAmmo(gameFrame.getAmmo() - 1);
             canShoot = false;
             shootSoundPlayer.playSound();
             shootTimer.scheduleAtFixedRate(new TimerTask() {
