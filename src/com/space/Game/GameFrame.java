@@ -37,11 +37,13 @@ public class GameFrame {
         }
 
         public void paintComponent(Graphics g) {
-            int y;
-            y = (getHeight() * currentFrame)/framerate;
             super.paintComponent(g);
-            g.drawImage(backgroundImage, 0, y, this);
-            g.drawImage(backgroundImage, 0, y-getHeight(), this);
+            int bgHeight;
+            bgHeight = (getHeight() * currentFrame)/framerate;
+            g.drawImage(backgroundImage, 0, bgHeight, this);
+            g.drawImage(backgroundImage, 0, bgHeight-getHeight(), this);
+
+            System.out.println(player.getX() + " " + player.getY() + " " + getWidth() + " " + getHeight());
             g.drawImage(playerImage, player.getX(), player.getY(), this);
             //g.dispose();
         }
@@ -51,7 +53,7 @@ public class GameFrame {
 
     public GameFrame() {
         DelayToFrameRate frameController = new DelayToFrameRate(60, true);
-        Player player = new Player(590, 500);
+        Player player = new Player(590, 450);
 
         ammoLabel = new JLabel();
         ammoLabel.setText(String.valueOf(ammo));
