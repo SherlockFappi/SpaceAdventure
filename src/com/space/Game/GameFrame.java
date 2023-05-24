@@ -19,7 +19,7 @@ public class GameFrame {
             this.player = player;
 
             try {
-                this.playerImage = ImageIO.read(new File("C:\\projects\\java\\SpaceAdventure\\src\\com\\space\\Textures\\rocked.png"));
+                this.playerImage = ImageIO.read(new File("src/com/space/Textures/rocked.png"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
