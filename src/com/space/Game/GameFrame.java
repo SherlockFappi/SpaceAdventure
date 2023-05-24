@@ -16,14 +16,13 @@ public class GameFrame {
 
     private int ammo = 50; // Munition
 
-    private Timer backgroundTimer;
-
     private JLabel ammoLabel;
 
     private static class Panel extends JPanel {
         Player player;
         BufferedImage playerImage;
         BufferedImage backgroundImage;
+
 
         public Panel(Player player) {
             this.player = player;
@@ -38,6 +37,7 @@ public class GameFrame {
 
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
+
             int bgHeight;
             bgHeight = (getHeight() * currentFrame)/framerate;
             g.drawImage(backgroundImage, 0, bgHeight, this);

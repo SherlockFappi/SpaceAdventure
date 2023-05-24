@@ -6,7 +6,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class KeyHandler implements KeyListener {
-    private GameFrame gameFrame;
+    private final GameFrame gameFrame;
 
     private boolean moveUp = false;
     private boolean moveDown = false;
@@ -64,7 +64,7 @@ public class KeyHandler implements KeyListener {
                 public void run() {
                     if (i < shotSpeed) i+=10;
                     else {
-                        canShoot = true;
+                        if (gameFrame.getAmmo() > 0) canShoot = true;
                         this.cancel();
                     }
                 }
