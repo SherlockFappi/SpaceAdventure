@@ -22,6 +22,8 @@ public class GameFrame {
         Player player;
         BufferedImage playerImage;
         BufferedImage backgroundImage;
+        BufferedImage exhaust_S;
+        BufferedImage exhaust_L;
 
 
         public Panel(Player player) {
@@ -30,6 +32,8 @@ public class GameFrame {
             try {
                 this.playerImage = ImageIO.read(new File("src/com/space/Textures/rocket/rocket.png"));
                 this.backgroundImage = ImageIO.read(new File("src/com/space/Textures/background.png"));
+                this.exhaust_S = ImageIO.read(new File("src/com/space/Textures/rocket/exhausts/rocket_antrieb_small.png"));
+                this.exhaust_L = ImageIO.read(new File("src/com/space/Textures/rocket/exhausts/rocket_antrieb_big.png"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -43,8 +47,10 @@ public class GameFrame {
             g.drawImage(backgroundImage, 0, bgHeight, this);
             g.drawImage(backgroundImage, 0, bgHeight-getHeight(), this);
 
-            System.out.println(player.getX() + " " + player.getY() + " " + getWidth() + " " + getHeight());
+            //System.out.println(player.getX() + " " + player.getY() + " " + getWidth() + " " + getHeight());
             g.drawImage(playerImage, player.getX(), player.getY(), this);
+            if (KeyHandler.moveUp) g.drawImage(exhaust_L, player.getX()+25, player.getY()+151, this);
+            else if (!KeyHandler.moveDown) g.drawImage(exhaust_S, player.getX()+25, player.getY()+151, this);
             //g.dispose();
         }
     }

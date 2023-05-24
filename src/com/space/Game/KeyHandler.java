@@ -8,17 +8,17 @@ import java.util.TimerTask;
 public class KeyHandler implements KeyListener {
     private final GameFrame gameFrame;
 
-    private boolean moveUp = false;
-    private boolean moveDown = false;
-    private boolean moveLeft = false;
-    private boolean moveRight = false;
+    public static boolean moveUp = false;
+    public static boolean moveDown = false;
+    public static boolean moveLeft = false;
+    public static boolean moveRight = false;
 
     private final int moveSpeedLeft = 7;
     private final int moveSpeedUp = 5;
     private final int moveSpeedDown = 3;
 
     private boolean canShoot = true;
-    private int shotSpeed = 1000; // Schuss alle shotSpeed ms möglich
+    private final int shotSpeed = 1000; // Schuss alle shotSpeed ms möglich
     Timer shootTimer;
 
     SoundPlayer shootSoundPlayer;
