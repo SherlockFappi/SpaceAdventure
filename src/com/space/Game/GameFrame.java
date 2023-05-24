@@ -49,6 +49,7 @@ public class GameFrame {
         frame.setSize(1280, 720);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
         frame.setVisible(true);
 
         frame.setBackground(Color.BLACK);

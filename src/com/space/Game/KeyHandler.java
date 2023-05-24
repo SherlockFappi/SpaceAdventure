@@ -15,10 +15,16 @@ public class KeyHandler implements KeyListener {
     private final int moveSpeedUp = 5;
     private final int moveSpeedDown = 3;
 
-    SoundPlayer soundPlayer;
+    private boolean canShoot = true;
+    private int shotSpeed = 1000; // Schuss alle shotSpeed ms möglich
+    Timer shootTimer;
+
+    SoundPlayer shootSoundPlayer;
 
     public KeyHandler (Player player) {
-        soundPlayer = new SoundPlayer();
+        shootSoundPlayer = new SoundPlayer("shoot.wav");
+
+        shootTimer = new Timer();
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -44,8 +50,20 @@ public class KeyHandler implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-            soundPlayer.playSound("shoot.wav");
+        if (e.getKeyCode() == KeyEvent.VK_SPACE && canShoot) {
+            canShoot = false;
+            shootSoundPlayer.playSound();
+            shootTimer.scheduleAtFixedRate(new TimerTask() {
+                int i = 0;
+                @Override
+                public void run() {
+                    if (i < shotSpeed) i+=10;
+                    else {
+                        canShoot = true;
+                        this.cancel();
+                    }
+                }
+            }, 0, 10);
         }
 
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
