@@ -11,7 +11,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class KeyHandler implements KeyListener {
-    private final ArrayList<Shot> shotList = new ArrayList<>();
+    private ArrayList<Shot> shotList = new ArrayList<>();
 
     private final GameFrame gameFrame;
 
@@ -58,6 +58,10 @@ public class KeyHandler implements KeyListener {
 
     public ArrayList<Shot> getShotList () {
         return this.shotList;
+    }
+
+    public void setShotList (ArrayList<Shot> shotList) {
+        this.shotList = shotList;
     }
 
     @Override

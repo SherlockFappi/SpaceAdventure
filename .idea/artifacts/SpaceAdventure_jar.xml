@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="SpaceAdventure:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/SpaceAdventure_jar</output-path>
+    <root id="archive" name="SpaceAdventure.jar">
+      <element id="module-output" name="SpaceAdventure" />
+    </root>
+  </artifact>
+</component>

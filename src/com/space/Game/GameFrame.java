@@ -26,6 +26,10 @@ public class GameFrame {
         BufferedImage exhaust_S;
         BufferedImage exhaust_L;
 
+        AsteroidController asteroidController = new AsteroidController();
+        private ArrayList<Asteroid> asteroidList = new ArrayList<>();
+        private Asteroid asteroid;
+
         KeyHandler keyHandler;
         private ArrayList<Shot> shotList = new ArrayList<>();
         private Shot shot;
@@ -68,6 +72,41 @@ public class GameFrame {
                     shotList.remove(shot);
                 }
             }
+            keyHandler.setShotList(this.shotList);
+
+            // draw asteroids
+            this.asteroidList = asteroidController.getAsteroidList();
+            for (int i = 0; i < asteroidList.size(); i++) {
+                asteroid = asteroidList.get(i);
+                g.drawImage(asteroid.getImage(), asteroid.getX(), asteroid.getY(), this);
+                asteroid.setY(asteroid.getY() + asteroid.getSpeed());
+                if (asteroid.getY() > 720) {
+                    asteroidList.remove(i);
+                }
+            }
+            asteroidController.setAsteroidList(this.asteroidList);
+
+            for (int i = 0; i < asteroidList.size(); i++) {
+                asteroid = asteroidList.get(i);
+                for (int j = 0; j < shotList.size(); j++) {
+                    shot = shotList.get(j);
+                    if ((asteroid.getX() < shot.getXpos() && asteroid.getX() + 50 > shot.getXpos())) {
+                        if (asteroid.getY() - 30 < shot.getYpos() && asteroid.getY() + 50 >= shot.getYpos()) {
+                            asteroidList.remove(i);
+                            shotList.remove(j);
+                        }
+                    }
+                }
+
+                if (asteroid.getX() > player.getX() - 90 && asteroid.getX() + 40 < player.getX()) {
+                    if (asteroid.getY() - 150 < player.getY() && asteroid.getY() + 50 >= player.getY()) {
+                        asteroidList.remove(i);
+                        System.out.println("Player hit");
+                    }
+                }
+            }
+            asteroidController.setAsteroidList(this.asteroidList);
+            keyHandler.setShotList(this.shotList);
 
             //g.dispose();
         }
