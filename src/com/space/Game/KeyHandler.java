@@ -77,7 +77,7 @@ public class KeyHandler implements KeyListener {
             shootSoundPlayer.playSound();
             BufferedImage image = null;
             try {
-                image = ImageIO.read(new File("src/com/space/Textures/rocket/shots/shot_green.png"));
+                image = ImageIO.read(getClass().getResource("/shot_green.png"));
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

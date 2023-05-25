@@ -40,10 +40,10 @@ public class GameFrame {
             this.keyHandler = keyHandler;
 
             try {
-                this.playerImage = ImageIO.read(new File("src/com/space/Textures/rocket/rocket.png"));
-                this.backgroundImage = ImageIO.read(new File("src/com/space/Textures/background.png"));
-                this.exhaust_S = ImageIO.read(new File("src/com/space/Textures/rocket/exhausts/rocket_antrieb_small.png"));
-                this.exhaust_L = ImageIO.read(new File("src/com/space/Textures/rocket/exhausts/rocket_antrieb_big.png"));
+                this.playerImage = ImageIO.read(getClass().getResource("/rocket.png"));
+                this.backgroundImage = ImageIO.read(getClass().getResource("/background.png"));
+                this.exhaust_S = ImageIO.read(getClass().getResource("/rocket_antrieb_small.png"));
+                this.exhaust_L = ImageIO.read(getClass().getResource("/rocket_antrieb_big.png"));
             } catch (IOException e) {
                 e.printStackTrace();
             }

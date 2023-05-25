@@ -15,7 +15,7 @@ public class SoundPlayer {
         new Thread(() -> {
             try {
                 Clip clip = AudioSystem.getClip();
-                AudioInputStream inStream = AudioSystem.getAudioInputStream(new File(new File("src\\com\\space\\Game\\Sounds\\" + this.url).getAbsolutePath()));
+                AudioInputStream inStream = AudioSystem.getAudioInputStream(getClass().getResource("/shoot.wav"));
                 clip.open(inStream);
                 FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
                 float volume = -25.0f; // Hier kannst du den gewünschten Lautstärkewert einstellen, z.B. -10.0f für 10 dB Lautstärkereduktion

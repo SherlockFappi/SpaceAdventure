@@ -1,7 +1,16 @@
 <component name="ArtifactManager">
+<<<<<<< Updated upstream
   <artifact type="jar" build-on-make="true" name="SpaceAdventure:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/SpaceAdventure_jar</output-path>
     <root id="archive" name="SpaceAdventure.jar">
+=======
+  <artifact type="jar" name="SpaceAdventure:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/SpaceAdventure_jar</output-path>
+    <root id="archive" name="SpaceAdventure.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/Resources/META-INF/MANIFEST.MF" />
+      </element>
+>>>>>>> Stashed changes
       <element id="module-output" name="SpaceAdventure" />
     </root>
   </artifact>

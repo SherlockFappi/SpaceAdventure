@@ -2,8 +2,15 @@
   <artifact type="jar" name="SpaceAdventure:jar2">
     <output-path>$PROJECT_DIR$/out/artifacts/SpaceAdventure_jar2</output-path>
     <root id="archive" name="SpaceAdventure.jar">
+<<<<<<< Updated upstream
       <element id="module-output" name="SpaceAdventure" />
       <element id="extracted-dir" path="$PROJECT_DIR$/out/artifacts/SpaceAdventure_jar/SpaceAdventure.jar" path-in-jar="/" />
+=======
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/Resources/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="SpaceAdventure" />
+>>>>>>> Stashed changes
     </root>
   </artifact>
 </component>
